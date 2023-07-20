@@ -1,3 +1,5 @@
+# Tracing
+
 This is a trace generator for the simulator used in a paper.
 
 The trace generator records (1) an instruction trace, and (2) a page table dump at the end of the trace generation. Both the trace and the page table dump are later consumed by the simulator.
@@ -86,3 +88,12 @@ PERF_PATH="<the path to your perf binary>"
   ```
   
 10. The trace is now ready for use in the simulator
+
+
+# Simulating
+
+Use [this repo](https://github.com/jiyuzh/dynamorio)
+
+Choose branch `simulator-pwc-prepare4release` (for 1D paging) or `simulator-virt-prepare4release` (for 2D paging)
+
+Modify `run.sh` and `run_common.sh`. The semantic of parameters should be pretty obvious.
