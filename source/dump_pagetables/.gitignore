@@ -8,3 +8,4 @@
 !transform_pt_host.dib
 !transform_pt_guest.dib
 !build_header.sh
+!remove.sh

@@ -106,18 +106,25 @@ static void print_pmd_tree(struct seq_file *s, pmd_t *pmd0, unsigned long upper)
 	}
 }
 
+static inline unsigned long pud_page_vaddr(pud_t pud)
+{
+	return (unsigned long)__va(pud_val(pud) & pud_pfn_mask(pud));
+}
+
 static void print_pud_tree(struct seq_file *s, pud_t *pud0, unsigned long upper, loff_t off)
 {
 	unsigned long i = off / (1);
 	unsigned long j = off % (1);
 	unsigned long va;
 	bool leaf;
+	pud_t * pud;
+	unsigned long pfn;
 
 	i = off / (1);
 	j = off % (1);
 
-	pud_t *pud = pud0 + i;
-	unsigned long pfn;
+	pud = pud0 + i;
+	
 
 	if (pud_none(*pud) || unlikely(pud_bad(*pud)))
 		return;
@@ -134,6 +141,11 @@ static void print_pud_tree(struct seq_file *s, pud_t *pud0, unsigned long upper,
 		return;
 
 	print_pmd_tree(s, (pmd_t *) pud_page_vaddr(*pud), va);
+}
+
+static inline unsigned long p4d_page_vaddr(p4d_t p4d)
+{
+	return (unsigned long)__va(p4d_val(p4d) & p4d_pfn_mask(p4d));
 }
 
 static void print_p4d_tree(struct seq_file *s, p4d_t *p4d0, unsigned long upper, loff_t off)
